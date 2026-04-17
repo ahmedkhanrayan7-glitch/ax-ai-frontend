@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AX AI Lead Engine</title>
+</head>
+<body>
+
+<h1>Lead Generator</h1>
+
+<input id="niche" placeholder="Enter niche"><br><br>
+<input id="city" placeholder="Enter city"><br><br>
+<input id="limit" placeholder="Enter limit"><br><br>
+
+<button onclick="sendData()">Get Leads</button>
+
+<pre id="output"></pre>
+
+<script>
+async function sendData() {
+  const niche = document.getElementById("niche").value;
+  const city = document.getElementById("city").value;
+  const limit = document.getElementById("limit").value;
+
+  const res = await fetch("https://adminaxaiv.app.n8n.cloud/webhook/lead-extract", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ niche, city, limit })
+  });
+
+  const data = await res.json();
+  document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
